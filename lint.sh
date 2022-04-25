@@ -9,7 +9,9 @@ make
 ./nachos -mkdir var
 ./nachos -mkdir bin
 
-./nachos –x ../test/halt.noff
+./nachos -ap ../test/halt.noff halt.noff
+./nachos –x halt.noff
+
 # ./nachos -sh
 
 # ./nachos -ap test/big test
