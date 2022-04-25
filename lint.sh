@@ -10,7 +10,7 @@ make
 ./nachos -mkdir bin
 
 ./nachos -ap ../test/halt.noff halt.noff
-./nachos –x halt.noff
+./nachos -x halt.noff
 
 # ./nachos -sh
 
