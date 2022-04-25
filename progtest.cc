@@ -34,6 +34,8 @@ StartProcess(char *filename)
     space = new AddrSpace(executable);    
     currentThread->space = space; //把进程的上下文映射到核心线程
 
+    space->Print();
+
     delete executable;			// close file
 
     space->InitRegisters();		// set the initial register values
