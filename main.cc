@@ -92,7 +92,7 @@ main(int argc, char **argv)
     (void) Initialize(argc, argv);
 
 	// StartProcess("/home/admin/nachos/code/test/halt.noff");
-	StartProcess("halt.noff");
+	// StartProcess("halt.noff");
 
 #ifdef THREADS
 //    ThreadTest();
