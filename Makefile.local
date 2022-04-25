@@ -8,8 +8,7 @@ endef
 # 
 # Make sure you use += and not = here.
 
-CCFILES += fstest.cc\
-	lsh.cc\
+CCFILES += lsh.cc\
 	directory.cc\
 	filehdr.cc\
 	filesys.cc\
