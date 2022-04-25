@@ -18,9 +18,9 @@ endef
 # uncomment the include below
 
 
-include ./Makefile.local
+# include ./Makefile.local
 include ../threads/Makefile.local
-include ../filesys/Makefile.local
+# include ../filesys/Makefile.local
 
 
 #include ../ass2/Makefile.local
