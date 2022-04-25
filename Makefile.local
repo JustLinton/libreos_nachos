@@ -12,6 +12,7 @@ CCFILES += lsh.cc\
 	directory.cc\
 	filehdr.cc\
 	filesys.cc\
+	fstest.cc\
 	openfile.cc\
 	synchdisk.cc\
 	disk.cc\
