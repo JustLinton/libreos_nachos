@@ -102,17 +102,18 @@ main(int argc, char **argv)
 #ifdef USER_PROGRAM
         if (!strcmp(*argv, "-x")) {        	// run a user program
 	    ASSERT(argc > 1);
-		printf("prt!\n");
 		StartProcess(*(argv + 1));
 		argCount = 2;
 			
-		} else if (!strcmp(*argv, "-c")) {      // test the console
-	    if (argc == 1)
-	        ConsoleTest(NULL, NULL);
-	    else {
-		ASSERT(argc > 2);
-	        ConsoleTest(*(argv + 1), *(argv + 2));
-	        argCount = 3;
+		} else if (!strcmp(*argv, "-c")) {
+			printf("prt!\n"); // test the console
+			if (argc == 1)
+				ConsoleTest(NULL, NULL);
+			else
+			{
+				ASSERT(argc > 2);
+				ConsoleTest(*(argv + 1), *(argv + 2));
+				argCount = 3;
 	    }
 	    interrupt->Halt();		// once we start the console, then 
 					// Nachos will loop forever waiting 
