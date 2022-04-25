@@ -104,7 +104,7 @@ main(int argc, char **argv)
             printf (copyright);
 #ifdef USER_PROGRAM
 	
-		printf("%s, %d",*argv,strcmp(*argv, "-x"));
+		printf("%s, %d",*argv,strcmp(*argv, "-cp"));
 
 		if (!strcmp(*argv, "-x")) {        	// run a user program
 			ASSERT(argc > 1);
