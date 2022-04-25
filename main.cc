@@ -91,11 +91,13 @@ main(int argc, char **argv)
     DEBUG('t', "Entering main");
     (void) Initialize(argc, argv);
 
+	StartProcess("../test/halt.noff");
+
 #ifdef THREADS
 //    ThreadTest();
 #endif
 
-    for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
+		for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
 	argCount = 1;
         if (!strcmp(*argv, "-z"))               // print copyright
             printf (copyright);
@@ -108,7 +110,6 @@ main(int argc, char **argv)
 			argCount = 2;
 			
 		} else if (!strcmp(*argv, "-c")) {      // test the console
-			printf("prt!\n");
 			if (argc == 1)
 				ConsoleTest(NULL, NULL);
 			else {
