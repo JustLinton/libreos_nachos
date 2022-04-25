@@ -100,8 +100,8 @@ main(int argc, char **argv)
         if (!strcmp(*argv, "-z"))               // print copyright
             printf (copyright);
 #ifdef USER_PROGRAM
-		printf("prt!\n");
-		
+	
+
 		if (!strcmp(*argv, "-x")) {        	// run a user program
 			ASSERT(argc > 1);
 			StartProcess(*(argv + 1));
@@ -118,6 +118,8 @@ main(int argc, char **argv)
 	    interrupt->Halt();		// once we start the console, then 
 					// Nachos will loop forever waiting 
 					// for console input
+	}else{
+		printf("prt!\n");
 	}
 #endif // USER_PROGRAM
 #ifdef FILESYS
