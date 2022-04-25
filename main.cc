@@ -118,7 +118,6 @@ main(int argc, char **argv)
 					// Nachos will loop forever waiting 
 					// for console input
 	}
-	printf("prt!\n");
 #endif // USER_PROGRAM
 #ifdef FILESYS
 	if (!strcmp(*argv, "-cp")) { 		// copy from UNIX to Nachos
