@@ -8,15 +8,7 @@ endef
 # 
 # Make sure you use += and not = here.
 
-CCFILES += addrspace.cc\
-	bitmap.cc\
-	exception.cc\
-	progtest.cc\
-	console.cc\
-	machine.cc\
-	mipssim.cc\
-	translate.cc\
-	lsh.cc\
+CCFILES += lsh.cc\
 	directory.cc\
 	filehdr.cc\
 	filesys.cc\
@@ -24,7 +16,16 @@ CCFILES += addrspace.cc\
 	openfile.cc\
 	synchdisk.cc\
 	disk.cc\
+	bitmap.cc\
 	pwdStack.cc\
+	addrspace.cc\
+	exception.cc\
+	progtest.cc\
+	console.cc\
+	machine.cc\
+	mipssim.cc\
+	translate.cc\
+	
 
 # INCPATH += -I../bin -I../userprog -I../filesys
 INCPATH += -I../bin -I../userprog
