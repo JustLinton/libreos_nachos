@@ -35,7 +35,7 @@ StartProcess(char *filename)
     currentThread->space = space; //把进程的上下文映射到核心线程
 
     space->Print();
-    printf("prt!\n");
+ 
 
     delete executable;			// close file
 
