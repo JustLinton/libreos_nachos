@@ -97,15 +97,15 @@ main(int argc, char **argv)
 
     for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
 	argCount = 1;
-		printf("prt!\n");
         if (!strcmp(*argv, "-z"))               // print copyright
             printf (copyright);
 #ifdef USER_PROGRAM
         if (!strcmp(*argv, "-x")) {        	// run a user program
 	    ASSERT(argc > 1);
-            StartProcess(*(argv + 1));
-            argCount = 2;
-			// printf("prt!\n");
+		printf("prt!\n");
+		StartProcess(*(argv + 1));
+		argCount = 2;
+			
 		} else if (!strcmp(*argv, "-c")) {      // test the console
 	    if (argc == 1)
 	        ConsoleTest(NULL, NULL);
