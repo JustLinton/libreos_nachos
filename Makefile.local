@@ -27,8 +27,8 @@ CCFILES += lsh.cc\
 	translate.cc\
 	
 
-# INCPATH += -I../bin -I../userprog -I../filesys
-INCPATH += -I../bin -I../userprog
+INCPATH += -I../bin -I../userprog -I../filesys
+# INCPATH += -I../bin -I../userprog
 
 ifdef MAKE_FILE_FILESYS_LOCAL
 DEFINES += -DUSER_PROGRAM
