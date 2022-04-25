@@ -90,7 +90,9 @@ main(int argc, char **argv)
 
     DEBUG('t', "Entering main");
     (void) Initialize(argc, argv);
-    
+
+	printf("prt!\n");
+
 #ifdef THREADS
 //    ThreadTest();
 #endif
@@ -104,7 +106,7 @@ main(int argc, char **argv)
 	    ASSERT(argc > 1);
             StartProcess(*(argv + 1));
             argCount = 2;
-			printf("prt!\n");
+			// printf("prt!\n");
 		} else if (!strcmp(*argv, "-c")) {      // test the console
 	    if (argc == 1)
 	        ConsoleTest(NULL, NULL);
