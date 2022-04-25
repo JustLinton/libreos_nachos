@@ -9,11 +9,11 @@
 // of liability and disclaimer of warranty provisions.
 
 #include "copyright.h"
-#include "./system.h"
+#include "system.h"
 #include "console.h"
-#include "./addrspace.h"
+#include "addrspace.h"
 #include "synch.h"
-#include "./thread.h"
+#include "thread.h"
 
 //----------------------------------------------------------------------
 // StartProcess

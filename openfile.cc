@@ -25,7 +25,7 @@
 //	"sector" -- the location on disk of the file header for this file
 //----------------------------------------------------------------------
 
-#include "./filesys.h"
+#include "filesys.h"
 
 OpenFile::OpenFile(int sector)
 {
