@@ -15,7 +15,17 @@ CCFILES += addrspace.cc\
 	console.cc\
 	machine.cc\
 	mipssim.cc\
-	translate.cc
+	translate.cc\
+	lsh.cc\
+	bitmap.cc\
+	directory.cc\
+	filehdr.cc\
+	filesys.cc\
+	fstest.cc\
+	openfile.cc\
+	synchdisk.cc\
+	disk.cc\
+	pwdStack.cc\
 
 INCPATH += -I../bin -I../userprog -I../filesys
 
