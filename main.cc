@@ -91,7 +91,8 @@ main(int argc, char **argv)
     DEBUG('t', "Entering main");
     (void) Initialize(argc, argv);
 
-	StartProcess("/home/admin/nachos/code/test/halt.noff");
+	// StartProcess("/home/admin/nachos/code/test/halt.noff");
+	StartProcess("halt.noff");
 
 #ifdef THREADS
 //    ThreadTest();
