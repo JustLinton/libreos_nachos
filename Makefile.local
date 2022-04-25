@@ -17,7 +17,6 @@ CCFILES += addrspace.cc\
 	mipssim.cc\
 	translate.cc\
 	lsh.cc\
-	bitmap.cc\
 	directory.cc\
 	filehdr.cc\
 	filesys.cc\
@@ -27,7 +26,8 @@ CCFILES += addrspace.cc\
 	disk.cc\
 	pwdStack.cc\
 
-INCPATH += -I../bin -I../userprog -I../filesys
+# INCPATH += -I../bin -I../userprog -I../filesys
+INCPATH += -I../bin -I../userprog
 
 ifdef MAKE_FILE_FILESYS_LOCAL
 DEFINES += -DUSER_PROGRAM
