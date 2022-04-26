@@ -273,6 +273,7 @@ ExceptionHandler(ExceptionType which)
                     printf("std!\n");
                     readnum = openfile->ReadStdin(buffer, size);
                 }else{
+                    printf("not std!\n");
                     readnum = openfile->Read(buffer, size);
                 }
                    
