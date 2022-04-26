@@ -107,7 +107,7 @@ ExceptionHandler(ExceptionType which)
                 delete executable;	// 关闭文件
                 // 建立新核心线程
                 Thread *thread = new Thread(filename);
-                printf("new Thread, SpaceId: %d, Name: %s\n",space->getSpaceId(),filename);
+                printf("[New Thread] tid: %d, name: %s\n",space->getSpaceId(),filename);
                 // 将用户进程映射到核心线程上
                 thread->space = space;
                 thread->Fork(StartProcess,(int)space->getSpaceId());
