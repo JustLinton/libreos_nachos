@@ -14,12 +14,12 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include "./list.h"
 #include "copyright.h"
 #include "thread.h"
 #include "switch.h"
 #include "synch.h"
 #include "system.h"
-#include "./list.h"
 
 #define STACK_FENCEPOST 0xdeadbeef	// this is put at the top of the
 					// execution stack, for detecting 
