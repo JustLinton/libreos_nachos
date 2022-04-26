@@ -41,14 +41,12 @@ class AddrSpace
     void releaseFileDescriptor(int fd);
   // #endif
 
-  
-
   private:
     // add *userMap, *pidMap,spaceId
     static BitMap *userMap, *pidMap; // 全局位图
     TranslationEntry *pageTable;     // 线性页表
-    unsigned int spaceId;
     unsigned int numPages;  // 页表中的页表项以及地址编号
+    unsigned int spaceId;
 };
 
 #endif // ADDRSPACE_H
