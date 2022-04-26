@@ -11,12 +11,13 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include "filesys.h"
+
 #include "copyright.h"
 #include "filehdr.h"
 #include "openfile.h"
 #include "system.h"
 
-#include "filesys.h"
 
 
 //----------------------------------------------------------------------
