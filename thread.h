@@ -133,7 +133,7 @@ public:
   //+
   unsigned int userProgramId() {
      return space->getSpaceId();
-     return space->spaceId;
+    //  return space->spaceId;
   }
   //+
   int ExitCode() { return exitCode; }
