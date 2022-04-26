@@ -271,8 +271,8 @@ FileHeader::Print()
     int i, j, k;
     char *data = new char[SectorSize];
 
-    printf("type: %d",type);
-    if(type==0)printf("this is a file.\n");
+    printf("type: %d ",type);
+    if(type==0)printf("—— this is a file.\n");
     else printf("this is a dir.\n");
     printf("FileHeader contents.  File size: %d.  File blocks:\n", numBytes);
     for (i = 0; i < numSectors; i++)
