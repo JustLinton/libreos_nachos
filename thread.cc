@@ -296,13 +296,14 @@ Thread::Yield ()
 void
 Thread::Sleep ()
 {
-    printf("now:%d\n", userProgramId());
     Thread *nextThread;
     
     ASSERT(this == currentThread);
     ASSERT(interrupt->getLevel() == IntOff);
     
     DEBUG('t', "Sleeping thread \"%s\"\n", getName());
+
+    printf("now:%d\n", userProgramId());
 
     status = BLOCKED;
     while ((nextThread = scheduler->FindNextToRun()) == NULL)
