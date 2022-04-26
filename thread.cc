@@ -168,7 +168,7 @@ void Thread::Finish()
         printf("sid: %d,usrPgmID: %d\n", thread->waitProcessSpaceId, userProgramId());
         if (thread->waitProcessSpaceId == userProgramId())
         { // 在队列中
-            printf("yes\n");
+            // printf("yes\n");
             // 将子线程退出码赋给父进程的等待退出码
             thread->setWaitExitCode(exitCode);
             scheduler->ReadyToRun((Thread *)thread);
@@ -214,7 +214,7 @@ void Thread::Join(int SpaceId)
         currentThread->Sleep();            // Joiner阻塞
     }
     // 被唤醒且Joinee在终止队列中，在终止队列中删除Joinee
-    printf("awake!\n");
+    // printf("awake!\n");
     scheduler->deleteTerminatedThread(SpaceId);
     (void)interrupt->SetLevel(oldLevel); // 开中断
 }
