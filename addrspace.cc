@@ -81,6 +81,8 @@ AddrSpace::AddrSpace(OpenFile *executable)
     //+
     spaceId = pidMap->Find() + 100;  // 0-99留给内核线程
 
+    printf("new pid:%d\n",spaceId);
+
     // 可执行文件中包含了目标代码文件
     NoffHeader noffH; // noff文件头
     unsigned int i, size;
