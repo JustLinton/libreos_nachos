@@ -14,7 +14,7 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
-#include "./list.h"
+#include "list.h"
 #include "copyright.h"
 #include "thread.h"
 #include "switch.h"
