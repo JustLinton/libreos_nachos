@@ -151,6 +151,7 @@ Thread::CheckOverflow()
 
 void Thread::Finish()
 {
+    printf("now:%d\n",userProgramId());
     (void)interrupt->SetLevel(IntOff);
     ASSERT(this == currentThread);
 #ifdef USER_PROGRAM
