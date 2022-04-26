@@ -19,6 +19,7 @@
 #include "system.h"
 #include "addrspace.h"
 #include "noff.h"
+#include "./openfile.h"
 
 //----------------------------------------------------------------------
 // SwapHeader
@@ -44,15 +45,12 @@ SwapHeader (NoffHeader *noffH)
 
 void AddrSpace::Print()
 {
-
     printf("page table dump: %d pages in total\n", numPages);
-    printf("=============================\n");
+    printf("============================================\n");
     printf("\tVirtPage, \tPhysPage\n");
 
     for (int i = 0; i < numPages; i++)
-    {
-        printf("\t %d, \t\t%d\n", pageTable[i].virtualPage, pageTable[i].physicalPage);
-    }
+        printf("\t%d,\t\t%d\n", pageTable[i].virtualPage, pageTable[i].physicalPage);
     printf("============================================\n\n");
 }
 
@@ -71,63 +69,79 @@ void AddrSpace::Print()
 //	"executable" is the file containing the object code to load into memory
 //----------------------------------------------------------------------
 
+#define MAX_USERPROCESSES 256
+
+BitMap *AddrSpace::userMap = new BitMap(NumPhysPages);
+BitMap *AddrSpace::pidMap = new BitMap(MAX_USERPROCESSES);
+
 AddrSpace::AddrSpace(OpenFile *executable)
 {
-    NoffHeader noffH;
+    //+
+    ASSERT(pidMap->NumClear() >= 1); // 保证还有线程号可以分配
+    //+
+    spaceId = pidMap->Find() + 100;  // 0-99留给内核线程
+
+    // 可执行文件中包含了目标代码文件
+    NoffHeader noffH; // noff文件头
     unsigned int i, size;
 
-    executable->ReadAt((char *)&noffH, sizeof(noffH), 0);
-    if ((noffH.noffMagic != NOFFMAGIC) && 
-		(WordToHost(noffH.noffMagic) == NOFFMAGIC))
-    	SwapHeader(&noffH);
+    executable->ReadAt((char *)&noffH, sizeof(noffH), 0); // 读出noff文件
+    if ((noffH.noffMagic != NOFFMAGIC) && (WordToHost(noffH.noffMagic) == NOFFMAGIC))
+        SwapHeader(&noffH); // 检查noff文件是否正确
     ASSERT(noffH.noffMagic == NOFFMAGIC);
+    // 确定地址空间大小，其中还包括了用户栈大小
+    size = noffH.code.size + noffH.initData.size + noffH.uninitData.size + UserStackSize;
+    numPages = divRoundUp(size, PageSize); // 确定页数
+    size = numPages * PageSize;            // 计算真实占用大小
+    ASSERT(numPages <= NumPhysPages);      // 确认运行文件大小可以运行
 
-// how big is address space?
-    size = noffH.code.size + noffH.initData.size + noffH.uninitData.size 
-			+ UserStackSize;	// we need to increase the size
-						// to leave room for the stack
-    numPages = divRoundUp(size, PageSize);
-    size = numPages * PageSize;
-
-    ASSERT(numPages <= NumPhysPages);		// check we're not trying
-						// to run anything too big --
-						// at least until we have
-						// virtual memory
-
-    DEBUG('a', "Initializing address space, num pages %d, size %d\n", 
-					numPages, size);
-// first, set up the translation 
+    DEBUG('a', "Initializing address space, num pages %d, size %d\n", numPages, size);
+    // 第一步，创建页表，并对每一页赋初值
+    //+
     pageTable = new TranslationEntry[numPages];
-    for (i = 0; i < numPages; i++) {
-	pageTable[i].virtualPage = i;	// for now, virtual page # = phys page #
-	pageTable[i].physicalPage = i;
-	pageTable[i].valid = TRUE;
-	pageTable[i].use = FALSE;
-	pageTable[i].dirty = FALSE;
-	pageTable[i].readOnly = FALSE;  // if the code segment was entirely on 
-					// a separate page, we could set its 
-					// pages to be read-only
+    //+
+    ASSERT(userMap->NumClear() >= numPages); // 确认页面足够分配
+    for (i = 0; i < numPages; i++)
+    {
+        pageTable[i].virtualPage = i;                // 虚拟页
+        pageTable[i].physicalPage = userMap->Find(); // 在位图找空闲页进行分配
+        pageTable[i].valid = TRUE;
+        pageTable[i].use = FALSE;
+        pageTable[i].dirty = FALSE;
+        pageTable[i].readOnly = FALSE; // 只读选项
     }
-    
-// zero out the entire address space, to zero the unitialized data segment 
-// and the stack segment
-    bzero(machine->mainMemory, size);
+    // 第二步，将noff文件数据拷贝到物理内存中
+    if (noffH.code.size > 0)
+    {   //+
+        int pagePos = pageTable[noffH.code.virtualAddr / PageSize].physicalPage * PageSize;
+        //+
+        int offSet = noffH.code.virtualAddr % PageSize;
 
-// then, copy in the code and data segments into memory
-    if (noffH.code.size > 0) {
-        DEBUG('a', "Initializing code segment, at 0x%x, size %d\n", 
-			noffH.code.virtualAddr, noffH.code.size);
-        executable->ReadAt(&(machine->mainMemory[noffH.code.virtualAddr]),
-			noffH.code.size, noffH.code.inFileAddr);
+        executable->ReadAt(&(machine->mainMemory[pagePos + offSet]),
+                           noffH.code.size, noffH.code.inFileAddr); // ReadAt调用了bcopy函数
     }
-    if (noffH.initData.size > 0) {
-        DEBUG('a', "Initializing data segment, at 0x%x, size %d\n", 
-			noffH.initData.virtualAddr, noffH.initData.size);
-        executable->ReadAt(&(machine->mainMemory[noffH.initData.virtualAddr]),
-			noffH.initData.size, noffH.initData.inFileAddr);
-    }
+    if (noffH.initData.size > 0)
+    {   //+
+        int pagePos = pageTable[noffH.initData.virtualAddr / PageSize].physicalPage * PageSize;
+        //+
+        int offSet = noffH.initData.virtualAddr % PageSize;
 
+        executable->ReadAt(&(machine->mainMemory[pagePos + offSet]),
+                           noffH.initData.size, noffH.initData.inFileAddr);
+    }
+// #ifdef FILESYS
+    for (int i = 3; i < 10; i++)
+        fileDescriptor[i] = NULL;
+    OpenFile *StdinFile = new OpenFile("stdin");
+    OpenFile *StdoutFile = new OpenFile("stdout");
+    OpenFile *StderrFile = new OpenFile("stderr");
+    /* 输出、输入、错误 */
+    fileDescriptor[0] = StdinFile;
+    fileDescriptor[1] = StdoutFile;
+    fileDescriptor[2] = StderrFile;
+// #endif
 }
+
 
 //----------------------------------------------------------------------
 // AddrSpace::~AddrSpace
@@ -136,7 +150,12 @@ AddrSpace::AddrSpace(OpenFile *executable)
 
 AddrSpace::~AddrSpace()
 {
-   delete [] pageTable;
+    //+       
+    pidMap->Clear(spaceId - 100);
+    //+
+    for (int i = 0; i < numPages; i++)
+        userMap->Clear(pageTable[i].physicalPage);
+    delete[] pageTable;
 }
 
 //----------------------------------------------------------------------
@@ -179,9 +198,6 @@ AddrSpace::InitRegisters()
 //	For now, nothing!
 //----------------------------------------------------------------------
 
-void AddrSpace::SaveState() 
-{}
-
 //----------------------------------------------------------------------
 // AddrSpace::RestoreState
 // 	On a context switch, restore the machine state so that
@@ -195,3 +211,38 @@ void AddrSpace::RestoreState()
     machine->pageTable = pageTable;
     machine->pageTableSize = numPages;
 }
+
+//+
+void AddrSpace::SaveState()
+{
+    pageTable = machine->pageTable;
+    numPages = machine->pageTableSize;
+}
+
+#ifdef FILESYS
+//+
+int AddrSpace::getFileDescriptor(OpenFile *openfile)
+{
+    for (int i = 3; i < 10; i++)
+        if (fileDescriptor[i] == NULL)
+        {
+            fileDescriptor[i] = openfile;
+            return i;
+        }
+    return -1;
+}
+
+//+
+OpenFile *AddrSpace::getFileId(int fd)
+{
+    ASSERT((fd >= 0) && (fd < UserProgramNum));
+    return fileDescriptor[fd];
+}
+
+//+
+void AddrSpace::releaseFileDescriptor(int fd)
+{
+    ASSERT((fd >= 0) && (fd < UserProgramNum));
+    fileDescriptor[fd] = NULL;
+}
+#endif

@@ -24,7 +24,10 @@ CCFILES += lsh.cc\
 	console.cc\
 	machine.cc\
 	mipssim.cc\
+	list.cc\
 	translate.cc\
+	scheduler.cc\
+	thread.cc\
 	
 
 INCPATH += -I../bin -I../userprog -I../filesys

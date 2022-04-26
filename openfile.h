@@ -23,9 +23,10 @@
 #include "copyright.h"
 #include "utility.h"
 
+
 #ifdef FILESYS_STUB			// Temporarily implement calls to 
-					// Nachos file system as calls to UNIX!
-					// See definitions listed under #else
+// 					// Nachos file system as calls to UNIX!
+// 					// See definitions listed under #else
 class OpenFile {
   public:
     OpenFile(int f) { file = f; currentOffset = 0; }	// open the file
@@ -61,38 +62,36 @@ class OpenFile {
 #else // FILESYS
 class FileHeader;
 
-class OpenFile {
-  public:
-    OpenFile(int sector);		// Open a file whose header is located
-					// at "sector" on the disk
-    ~OpenFile();			// Close the file
+class OpenFile
+{
+public:
+	OpenFile(int sector); // 打开一个文件头在 sector 扇区的文件（DISK）
+	~OpenFile();		  // 关闭文件
 
-    void Seek(int position); 		// Set the position from which to 
-					// start reading/writing -- UNIX lseek
+	void Seek(int position); // 定位文件读写位置
+	// 读取 numBytes 字节数据到 into 中，返回实际读取字节
+	int Read(char *into, int numBytes);
+	// 将 from 中 numByters 数据写入 OpenFile 中
+	int Write(char *from, int numBytes);
+	// 从 OpenFile 的 pos 位置读取字节到 into 中
+	int ReadAt(char *into, int numBytes, int position);
+	// 从 from 中的 pos 位置读取字节到 OpenFile 中
+	int WriteAt(char *from, int numBytes, int position);
+	int Length(); // 返回文件字节数
 
-    int Read(char *into, int numBytes); // Read/write bytes from the file,
-					// starting at the implicit position.
-					// Return the # actually read/written,
-					// and increment position in file.
-    int Write(char *from, int numBytes);
+	// lab5
+	void WriteBack(); // 将文件头写回 DISK 中
 
-    int ReadAt(char *into, int numBytes, int position);
-    					// Read/write bytes from the file,
-					// bypassing the implicit position.
-    int WriteAt(char *from, int numBytes, int position);
-	
-	// lintonDoes.
-	void WriteBack();
+	//+
+	OpenFile(char *type) {}
+	//+
+	int WriteStdout(char *from, int numBytes);
+	//+
+	int ReadStdin(char *into, int numBytes);
 
-	int Length(); 			// Return the number of bytes in the
-					// file (this interface is simpler 
-					// than the UNIX idiom -- lseek to 
-					// end of file, tell, lseek back 
-    
-  private:
-    FileHeader *hdr;			// Header for this file 
-    int seekPosition;			// Current position within the file
-    int hdrSector;
+private:
+	FileHeader *hdr;			 // 文件头
+	int seekPosition, hdrSector; // 文件当前读取位置，文件头所在扇区号
 };
 
 #endif // FILESYS

@@ -53,6 +53,11 @@
 #include "utility.h"
 #include "system.h"
 
+//++
+#ifndef FILESYS
+#define FILESYS
+#endif
+
 // External functions used by this file
 
 extern void ThreadTest(void), Copy(char *unixFile, char *nachosFile);

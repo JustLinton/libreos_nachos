@@ -16,6 +16,8 @@
 #include "openfile.h"
 #include "system.h"
 
+#include "filesys.h"
+
 
 //----------------------------------------------------------------------
 // OpenFile::OpenFile
@@ -25,7 +27,20 @@
 //	"sector" -- the location on disk of the file header for this file
 //----------------------------------------------------------------------
 
-#include "filesys.h"
+//+
+int OpenFile::ReadStdin(char *into, int numBytes)
+{
+    int file = 0;
+    return ReadPartial(file, into, numBytes); // 将file文件数据写入into中
+}
+
+//+
+int OpenFile::WriteStdout(char *from, int numBytes)
+{
+    int file = 1;
+    WriteFile(file, from, numBytes); // 将from文件数据写入file中
+    return numBytes;
+}
 
 OpenFile::OpenFile(int sector)
 {
