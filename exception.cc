@@ -264,15 +264,18 @@ ExceptionHandler(ExceptionType which)
                 // 打开文件
                 OpenFile *openfile = currentThread->space->getFileId(fileId);
 
-                openfile->getFileHeader()->Print();
+                // openfile->getFileHeader()->Print();
 
                 // 打开文件读取信息
                 char buffer[size + 1];
                 int readnum = 0;
-                if (fileId == 0)
+                if (fileId == 0){
+                    printf("std!\n");
                     readnum = openfile->ReadStdin(buffer, size);
-                else
+                }else{
                     readnum = openfile->Read(buffer, size);
+                }
+                   
 
                 // printf("readnum:%d,fileId:%d,size:%d\n",readnum,fileId,size);
                 for (int i = 0; i < readnum; i++)
