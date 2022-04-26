@@ -222,7 +222,6 @@ void Thread::Join(int SpaceId)
 //+
 void Thread::Terminated()
 {
-    printf("now:%d\n", userProgramId());
     List *terminatedList = scheduler->getTerminatedList();
     ASSERT(this == currentThread);
     ASSERT(interrupt->getLevel() == IntOff);
@@ -297,6 +296,7 @@ Thread::Yield ()
 void
 Thread::Sleep ()
 {
+    printf("now:%d\n", userProgramId());
     Thread *nextThread;
     
     ASSERT(this == currentThread);
