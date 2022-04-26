@@ -9,8 +9,9 @@ make
 ./nachos -mkdir var
 ./nachos -mkdir bin
 
-./nachos -ap ../test/halt.noff halt.noff
-./nachos -x halt.noff
+./nachos -ap ../test/exitTest.noff exitTest.noff
+./nachos -ap ../test/joinTest.noff joinTest.noff
+./nachos -x joinTest.noff
 
 # ./nachos -sh
 
