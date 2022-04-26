@@ -89,7 +89,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Exec:
             {
-                printf("This is SC_Exec, CurrentThreadId: %d\n",(currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Exec, from tid: %d\n",(currentThread->space)->getSpaceId());
                 int addr = machine->ReadRegister(4);
                 char filename[50];
                 for(int i = 0; ; i++){
@@ -119,7 +119,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Exit:
             {
-                printf("This is SC_Exit, CurrentThreadId: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Exit, from tid: %d\n", (currentThread->space)->getSpaceId());
                 int exitCode = machine->ReadRegister(4);
                 machine->WriteRegister(2, exitCode);
                 currentThread->setExitCode(exitCode);
@@ -135,7 +135,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Join:
             {
-                printf("This is SC_Join, CurrentThreadId: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Join, from tid: %d\n", (currentThread->space)->getSpaceId());
                 int SpaceId = machine->ReadRegister(4);
                 currentThread->Join(SpaceId);
                 // waitProcessExitCode —— 返回 Joinee 的退出码
@@ -147,7 +147,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Yield:
             {
-                printf("This is SC_Yield, CurrentThreadId: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Yield, from tid: %d\n", (currentThread->space)->getSpaceId());
                 currentThread->Yield();
                 AdvancePC();
                 break;
