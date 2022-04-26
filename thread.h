@@ -132,8 +132,7 @@ public:
   void Terminated();
   //+
   unsigned int userProgramId() {
-    //  return space->getSpaceId(); 
-    return space->spaceId;
+     return space->getSpaceId(); 
   }
   //+
   int ExitCode() { return exitCode; }
