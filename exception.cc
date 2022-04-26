@@ -270,15 +270,14 @@ ExceptionHandler(ExceptionType which)
                 char buffer[size + 1];
                 int readnum = 0;
                 if (fileId == 0){
-                    printf("std!\n");
+                    // printf("std!\n");
                     readnum = openfile->ReadStdin(buffer, size);
                 }else{
-                    printf("not std!\n");
+                    // printf("not std!\n");
                     readnum = openfile->Read(buffer, size);
                 }
                    
-
-                // printf("readnum:%d,fileId:%d,size:%d\n",readnum,fileId,size);
+                printf("readnum:%d,fileId:%d,size:%d\n",readnum,fileId,size);
                 for (int i = 0; i < readnum; i++)
                     machine->WriteMem(addr, 1, buffer[i]);
                 buffer[readnum] = '\0';
