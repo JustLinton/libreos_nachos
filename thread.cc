@@ -209,6 +209,7 @@ void Thread::Join(int SpaceId)
     // Joinee不在终止队列中, 可运行态或阻塞态
     if (!interminatedList)
     {
+        printf("sleep!\n");
         waitingList->Append((void *)this); // 阻塞Joiner
         currentThread->Sleep();            // Joiner阻塞
     }
