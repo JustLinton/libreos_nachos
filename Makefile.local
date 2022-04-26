@@ -9,6 +9,7 @@ endef
 # Make sure you use += and not = here.
 
 CCFILES += lsh.cc\
+	list.cc\
 	directory.cc\
 	filehdr.cc\
 	filesys.cc\
@@ -24,7 +25,6 @@ CCFILES += lsh.cc\
 	console.cc\
 	machine.cc\
 	mipssim.cc\
-	list.cc\
 	translate.cc\
 	scheduler.cc\
 	thread.cc\
