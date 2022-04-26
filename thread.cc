@@ -209,11 +209,11 @@ void Thread::Join(int SpaceId)
     // Joinee不在终止队列中, 可运行态或阻塞态
     if (!interminatedList)
     {
-        printf("sleep!\n");
         waitingList->Append((void *)this); // 阻塞Joiner
         currentThread->Sleep();            // Joiner阻塞
     }
     // 被唤醒且Joinee在终止队列中，在终止队列中删除Joinee
+    printf("awake!\n");
     scheduler->deleteTerminatedThread(SpaceId);
     (void)interrupt->SetLevel(oldLevel); // 开中断
 }
