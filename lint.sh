@@ -12,7 +12,9 @@ make
 ./nachos -ap ../test/exitTest.noff exitTest.noff
 ./nachos -ap ../test/joinTest.noff joinTest.noff
 ./nachos -ap ../test/yieldTest.noff yieldTest.noff
-./nachos -x joinTest.noff
+./nachos -ap ../test/fileTest.noff fileTest.noff
+# ./nachos -x joinTest.noff
+./nachos -x fileTest.noff
 
 # ./nachos -sh
 
