@@ -153,7 +153,7 @@ void Thread::Finish()
 {
     (void)interrupt->SetLevel(IntOff);
     ASSERT(this == currentThread);
-#ifdef USER_PROGRAM
+// #ifdef USER_PROGRAM
     // 运行结束, 执行Exit()命令时已获取退出码
     // Joinee 运行结束, 唤醒 Joiner
     //+
@@ -167,7 +167,7 @@ void Thread::Finish()
         Thread *thread = (Thread *)first->item; // 强转成Thread指针
         if (thread->waitProcessSpaceId == userProgramId())
         { // 在队列中
-            // printf("yes\n");
+            printf("yes\n");
             // 将子线程退出码赋给父进程的等待退出码
             thread->setWaitExitCode(exitCode);
             scheduler->ReadyToRun((Thread *)thread);
@@ -178,11 +178,11 @@ void Thread::Finish()
     }
     //+
     Terminated();
-#else
-    DEBUG('t', "Finishing thread \"%s\"\n", getName());
-    threadToBeDestroyed = currentThread;
-    Sleep();
-#endif
+// #else
+    // DEBUG('t', "Finishing thread \"%s\"\n", getName());
+    // threadToBeDestroyed = currentThread;
+    // Sleep();
+// #endif
 }
 
 //+
