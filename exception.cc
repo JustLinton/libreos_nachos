@@ -73,6 +73,8 @@ ExceptionHandler(ExceptionType which)
 {
     int type = machine->ReadRegister(2);
 
+    printf("exception type:%d\n" type);
+
     //+
     if(which == SyscallException){
         switch (type)
