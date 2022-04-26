@@ -151,7 +151,6 @@ Thread::CheckOverflow()
 
 void Thread::Finish()
 {
-    printf("now:%d\n",userProgramId());
     (void)interrupt->SetLevel(IntOff);
     ASSERT(this == currentThread);
 #ifdef USER_PROGRAM
@@ -223,6 +222,7 @@ void Thread::Join(int SpaceId)
 //+
 void Thread::Terminated()
 {
+    printf("now:%d\n", userProgramId());
     List *terminatedList = scheduler->getTerminatedList();
     ASSERT(this == currentThread);
     ASSERT(interrupt->getLevel() == IntOff);
