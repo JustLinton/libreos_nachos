@@ -23,6 +23,7 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "filehdr.h"
 #include "syscall.h"
 
 //----------------------------------------------------------------------
@@ -262,6 +263,8 @@ ExceptionHandler(ExceptionType which)
 
                 // 打开文件
                 OpenFile *openfile = currentThread->space->getFileId(fileId);
+
+                openfile->getFileHeader()->Print();
 
                 // 打开文件读取信息
                 char buffer[size + 1];

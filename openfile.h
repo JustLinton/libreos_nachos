@@ -89,6 +89,9 @@ public:
 	//+
 	int ReadStdin(char *into, int numBytes);
 
+	//l+
+	FileHeader* getFileHeader(){return hdr;}
+
 private:
 	FileHeader *hdr;			 // 文件头
 	int seekPosition, hdrSector; // 文件当前读取位置，文件头所在扇区号
