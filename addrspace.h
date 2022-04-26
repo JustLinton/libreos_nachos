@@ -47,7 +47,7 @@ class AddrSpace
     TranslationEntry *pageTable;     // 线性页表
     unsigned int numPages;  // 页表中的页表项
     unsigned int spaceId; //空间ID(用作PID)
-    // unsigned int nop;  // 冗余量，防止溢出
+    unsigned int nop;  // 冗余量，防止溢出
 };
 
 #endif // ADDRSPACE_H
