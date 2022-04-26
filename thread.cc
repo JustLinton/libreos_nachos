@@ -153,7 +153,7 @@ void Thread::Finish()
 {
     (void)interrupt->SetLevel(IntOff);
     ASSERT(this == currentThread);
-// #ifdef USER_PROGRAM
+#ifdef USER_PROGRAM
     // 运行结束, 执行Exit()命令时已获取退出码
     // Joinee 运行结束, 唤醒 Joiner
     //+
@@ -179,11 +179,11 @@ void Thread::Finish()
     }
     //+
     Terminated();
-// #else
-    // DEBUG('t', "Finishing thread \"%s\"\n", getName());
-    // threadToBeDestroyed = currentThread;
-    // Sleep();
-// #endif
+#else
+    DEBUG('t', "Finishing thread \"%s\"\n", getName());
+    threadToBeDestroyed = currentThread;
+    Sleep();
+#endif
 }
 
 //+

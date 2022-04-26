@@ -60,7 +60,7 @@ void AdvancePC()
 //+
 void StartProcess(int spaceId)
 {
-    printf("spaceId:%d\n",spaceId);
+    // printf("spaceId:%d\n",spaceId);
     ASSERT(currentThread->userProgramId() == spaceId);
     currentThread->space->InitRegisters(); // 设置寄存器初值
     currentThread->space->RestoreState();  // 加载页表寄存器
