@@ -277,7 +277,7 @@ ExceptionHandler(ExceptionType which)
                     readnum = openfile->Read(buffer, size);
                 }
                    
-                printf("readnum:%d,fileId:%d,size:%d\n",readnum,fileId,size);
+                // printf("readnum:%d,fileId:%d,size:%d\n",readnum,fileId,size);
                 for (int i = 0; i < readnum; i++)
                     machine->WriteMem(addr, 1, buffer[i]);
                 buffer[readnum] = '\0';
