@@ -164,6 +164,7 @@ void Thread::Finish()
     //+
     while (first != NULL)
     {
+        printf("not yes\n");
         Thread *thread = (Thread *)first->item; // 强转成Thread指针
         if (thread->waitProcessSpaceId == userProgramId())
         { // 在队列中
