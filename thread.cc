@@ -19,7 +19,7 @@
 #include "switch.h"
 #include "synch.h"
 #include "system.h"
-#include "list.h"
+#include "./list.h"
 
 #define STACK_FENCEPOST 0xdeadbeef	// this is put at the top of the
 					// execution stack, for detecting 
