@@ -81,7 +81,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
     //+
     spaceId = pidMap->Find() + 100;  // 0-99留给内核线程
 
-    printf("new pid:%d\n",spaceId);
+    // printf("new pid:%d\n",spaceId);
 
     // 可执行文件中包含了目标代码文件
     NoffHeader noffH; // noff文件头
@@ -152,6 +152,7 @@ AddrSpace::AddrSpace(OpenFile *executable)
 
 AddrSpace::~AddrSpace()
 {
+    printf("deallocate!\n");
     //+       
     pidMap->Clear(spaceId - 100);
     //+
