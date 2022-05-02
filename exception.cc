@@ -87,6 +87,15 @@ ExceptionHandler(ExceptionType which)
             }
 
             //+
+            case SC_SHLO:
+            {
+                printf("[Syscall] SC_SHLO, from tid: %d\n", (currentThread->space)->getSpaceId());
+                printf("hello world!\n");
+                AdvancePC();
+                break;
+            }
+
+            //+
             case SC_Exec:
             {
                 printf("[Syscall] SC_Exec, from tid: %d\n",(currentThread->space)->getSpaceId());
