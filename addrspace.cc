@@ -156,8 +156,9 @@ AddrSpace::AddrSpace(OpenFile *executable)
 AddrSpace::~AddrSpace()
 {
     // printf("deallocate!\n");
-    //+       
-    pidMap->Clear(spaceId - 100);
+    //+
+    // pidMap->Clear(spaceId - 100);
+    pidMap->Clear(spaceId - 32);
     //+
     for (int i = 0; i < numPages; i++)
         userMap->Clear(pageTable[i].physicalPage);
