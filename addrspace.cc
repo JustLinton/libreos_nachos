@@ -157,7 +157,6 @@ AddrSpace::~AddrSpace()
 {
     // printf("deallocate!\n");
     //+
-    // pidMap->Clear(spaceId - 100);
     pidMap->Clear(spaceId - 32);
     //+
     for (int i = 0; i < numPages; i++)

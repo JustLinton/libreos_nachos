@@ -110,14 +110,14 @@ ExceptionHandler(ExceptionType which)
                     printf("Unable to open file %s\n",filename);
                     return;
                 }
-                // 建立新地址空间
+                // 建立新地址空间（实际上是创建进程）
                 AddrSpace *space = new AddrSpace(executable);
                 // space->Print();   // 输出新分配的地址空间
                 delete executable;	// 关闭文件
-                // 建立新核心线程
+                // 建立新核心线程，为映射用户线程做准备
                 Thread *thread = new Thread(filename);
-                printf("[New Thread] pid: %d, name: %s\n",space->getSpaceId(),filename);
-                // 将用户进程映射到核心线程上
+                printf("[New Kernel Thread] pid: %d, name: %s\n",space->getSpaceId(),filename);
+                // 将用户进程的唯一一个线程映射到核心线程上(所谓用户进程就是那个Addrspace，映射也就是告诉那个核心线程，你可以跑这段Addrspace上的代码了。)
                 thread->space = space;
                 thread->Fork(StartProcess,(int)space->getSpaceId());
                 machine->WriteRegister(2,space->getSpaceId());
