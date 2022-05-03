@@ -132,6 +132,7 @@ ExceptionHandler(ExceptionType which)
                 int exitCode = machine->ReadRegister(4);
                 machine->WriteRegister(2, exitCode);
                 currentThread->setExitCode(exitCode);
+                printf("tz\n");
                 // 父进程的退出码特殊标记，由 Join 的实现方式决定
                 // if (exitCode == 99)
                 if (exitCode == 31)
