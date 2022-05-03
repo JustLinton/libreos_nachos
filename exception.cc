@@ -133,7 +133,8 @@ ExceptionHandler(ExceptionType which)
                 machine->WriteRegister(2, exitCode);
                 currentThread->setExitCode(exitCode);
                 // 父进程的退出码特殊标记，由 Join 的实现方式决定
-                if (exitCode == 99)
+                // if (exitCode == 99)
+                if (exitCode == 31)
                     scheduler->emptyList(scheduler->getTerminatedList());
                 delete currentThread->space;
                 currentThread->Finish();

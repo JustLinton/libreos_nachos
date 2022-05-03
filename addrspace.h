@@ -44,8 +44,8 @@ class AddrSpace
   private:
     // add *userMap, *pidMap,spaceId
     static BitMap *userMap, *pidMap; // 全局位图
-    TranslationEntry *pageTable;     // 线性页表
-    unsigned int numPages;  // 页表中的页表项
+    TranslationEntry *pageTable;     // 页表entry构成的数组。也就是这个进程的进程页表。
+    unsigned int numPages;  // 页表长度
     unsigned int spaceId; //空间ID(用作PID)
     unsigned int nop;  // 冗余量，防止溢出
 };
