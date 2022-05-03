@@ -136,9 +136,8 @@ ExceptionHandler(ExceptionType which)
                 // if (exitCode == 99)
                 if (exitCode == 31)
                     scheduler->emptyList(scheduler->getTerminatedList());
-                printf("tz\n");
                 delete currentThread->space;
-                currentThread->Finish();
+                currentThread->Finish(); printf("tz\n");
                 AdvancePC();
                 break;
             }
