@@ -14,8 +14,8 @@ make
 ./nachos -ap ../test/yieldTest.noff yieldTest.noff
 ./nachos -ap ../test/fileTest.noff fileTest.noff
 ./nachos -ap ../test/sayHelloTest.noff sayHelloTest.noff
-# ./nachos -x joinTest.noff
-./nachos -x sayHelloTest.noff
+./nachos -x joinTest.noff
+# ./nachos -x sayHelloTest.noff
 # ./nachos -x fileTest.noff
 
 # ./nachos -sh

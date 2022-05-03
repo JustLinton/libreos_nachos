@@ -89,7 +89,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_SHLO:
             {
-                printf("[Syscall] SC_SHLO, from tid: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_SHLO, from pid: %d\n", (currentThread->space)->getSpaceId());
                 printf("hello world!\n");
                 AdvancePC();
                 break;
@@ -98,7 +98,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Exec:
             {
-                printf("[Syscall] SC_Exec, from tid: %d\n",(currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Exec, from pid: %d\n",(currentThread->space)->getSpaceId());
                 int addr = machine->ReadRegister(4);
                 char filename[50];
                 for(int i = 0; ; i++){
@@ -116,7 +116,7 @@ ExceptionHandler(ExceptionType which)
                 delete executable;	// 关闭文件
                 // 建立新核心线程
                 Thread *thread = new Thread(filename);
-                printf("[New Thread] tid: %d, name: %s\n",space->getSpaceId(),filename);
+                printf("[New Thread] pid: %d, name: %s\n",space->getSpaceId(),filename);
                 // 将用户进程映射到核心线程上
                 thread->space = space;
                 thread->Fork(StartProcess,(int)space->getSpaceId());
@@ -128,7 +128,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Exit:
             {
-                printf("[Syscall] SC_Exit, from tid: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Exit, from pid: %d\n", (currentThread->space)->getSpaceId());
                 int exitCode = machine->ReadRegister(4);
                 machine->WriteRegister(2, exitCode);
                 currentThread->setExitCode(exitCode);
@@ -145,7 +145,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Join:
             {
-                printf("[Syscall] SC_Join, from tid: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Join, from pid: %d\n", (currentThread->space)->getSpaceId());
                 int SpaceId = machine->ReadRegister(4);
                 currentThread->Join(SpaceId);
                 // waitProcessExitCode —— 返回 Joinee 的退出码
@@ -157,7 +157,7 @@ ExceptionHandler(ExceptionType which)
             //+
             case SC_Yield:
             {
-                printf("[Syscall] SC_Yield, from tid: %d\n", (currentThread->space)->getSpaceId());
+                printf("[Syscall] SC_Yield, from pid: %d\n", (currentThread->space)->getSpaceId());
                 currentThread->Yield();
                 AdvancePC();
                 break;
