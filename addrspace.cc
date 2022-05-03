@@ -79,10 +79,10 @@ AddrSpace::AddrSpace(OpenFile *executable)
     //+
     ASSERT(pidMap->NumClear() >= 1); // 保证还有线程号可以分配
     // //+
-    spaceId = pidMap->Find() + 100;  // 0-99留给内核线程
+    // spaceId = pidMap->Find() + 100;  // 0-99留给内核线程
 
     //+
-    // spaceId = pidMap->Find() + 32;  // 0-31留给内核进程
+    spaceId = pidMap->Find() + 32;  // 0-31留给内核进程
 
     // printf("new pid:%d\n",spaceId);
 
