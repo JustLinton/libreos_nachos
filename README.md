@@ -1,7 +1,5 @@
 # README
 
-## 山东大学操作系统课程设计
-
 #### LibreOS - NachOS
 
 - 实现了系统Shell
